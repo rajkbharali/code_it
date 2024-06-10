@@ -23,7 +23,7 @@ const Projects = () => {
   }, [searchTerm]);
 
   return (
-    <div className="w-full py-6 flex items-center gap-20 flex-wrap">
+    <div className="w-full py-6 flex items-center gap-14 flex-wrap">
       {filteredData.length > 0
         ? filteredData.map((x, index) => (
             <ProjectCard key={x.id} project={x} index={index} />
@@ -43,7 +43,7 @@ const ProjectCard = ({ project, index }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, delay: index * 0.5 }}
-      className="w-full cursor-pointer md:w-[350px] h-[350px] bg-secondary rounded-md p-4 flex flex-col
+      className="w-full cursor-pointer md:w-[300px] h-[300px] bg-secondary rounded-md p-4 flex flex-col
    items-center justify-center gap-4"
     >
       <div

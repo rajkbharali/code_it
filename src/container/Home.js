@@ -41,7 +41,7 @@ const Home = () => {
         {/* logo */}
         <div className="overflow-hidden w-full flex flex-col gap-4">
           <Link to={"/home"}>
-            <h1 className="flex items-center justify-center font-semibold text-white text-2xl">
+            <h1 className="flex items-center justify-center font-semibold text-white text-sm md:text-2xl ">
               CODE-<span className="text-red-600">IT</span> !
             </h1>
           </Link>
