@@ -23,7 +23,7 @@ const Projects = () => {
   }, [searchTerm]);
 
   return (
-    <div className="w-full py-6 flex items-center gap-14 flex-wrap">
+    <div className="w-full py-6 flex items-center justify-center gap-14 flex-wrap">
       {filteredData.length > 0
         ? filteredData.map((x, index) => (
             <ProjectCard key={x.id} project={x} index={index} />
