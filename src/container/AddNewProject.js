@@ -168,10 +168,10 @@ const AddNewProject = () => {
                   <p className="text-primaryText text-sm font-semibold">HTML</p>
                 </div>
                 {/* icons */}
-                <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
+                {/* <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
                   <FcSettings className="text-lg" />
                   <FaChevronDown className="text-lg text-primaryText" />
-                </div>
+                </div> */}
               </div>
               <div className="w-full px-2">
                 <Editor
@@ -186,7 +186,7 @@ const AddNewProject = () => {
                 />
               </div>
             </div>
-            <SplitPane split="vertical" minSize={300}>
+            <SplitPane split="vertical" minSize={500}>
               {/* css code */}
               <div
                 className="w-full h-full flex flex-col items-start
@@ -200,10 +200,10 @@ const AddNewProject = () => {
                     </p>
                   </div>
                   {/* icons */}
-                  <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
+                  {/* <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
                     <FcSettings className="text-lg" />
                     <FaChevronDown className="text-lg text-primaryText" />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="w-full px-2">
                   {/* <CodeMirror
@@ -238,10 +238,10 @@ const AddNewProject = () => {
                     <p className="text-primaryText text-sm font-semibold">JS</p>
                   </div>
                   {/* icons */}
-                  <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
+                  {/* <div className="cursor-pointer flex items-center justify-center gap-5 px-4">
                     <FcSettings className="text-lg" />
                     <FaChevronDown className="text-lg text-primaryText" />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="w-full px-2">
                   <Editor
