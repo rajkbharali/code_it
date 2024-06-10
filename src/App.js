@@ -1,25 +1,76 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { AddNewProject, Home } from "./container";
+import { auth, db } from "./config/firebase.config";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+} from "firebase/firestore";
+import { Spinner } from "./components";
+import { useDispatch } from "react-redux";
+import { setUser } from "./utils/authenticateSlice";
+import { getAllProjects } from "./utils/projectSlice";
 
-function App() {
+const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((useCred) => {
+      if (useCred) {
+        // console.log(useCred?.providerData[0]);
+        setDoc(doc(db, "users", useCred?.uid), useCred?.providerData[0]).then(
+          () => {
+            //dispatch action
+            dispatch(setUser(useCred?.providerData[0]));
+            navigate("/home/projects", { replace: true });
+          }
+        );
+      } else {
+        navigate("/home/auth", { replace: true });
+      }
+      setInterval(() => {
+        setIsLoading(false);
+      }, 2000);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const projectQuery = query(
+      collection(db, "Projects"),
+      orderBy("id", "desc")
+    );
+    const unsubscribe = onSnapshot(projectQuery, (querySnaps) => {
+      const projectList = querySnaps.docs.map((doc) => doc.data());
+      // console.log(projectList);
+      dispatch(getAllProjects(projectList));
+    });
+
+    return () => unsubscribe();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {isLoading ? (
+        <div className="w-screen h-screen flex items-center justify-center overflow-hidden">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="w-screen h-screen flex items-start justify-start overflow-hidden">
+          <Routes>
+            <Route path="/home/*" element={<Home />} />
+            <Route path="/newProject" element={<AddNewProject />} />
+            <Route path="*" element={<Navigate to={"/home"} />} />
+          </Routes>
+        </div>
+      )}
+    </>
   );
-}
+};
 
 export default App;
